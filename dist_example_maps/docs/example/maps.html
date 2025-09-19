@@ -36,6 +36,7 @@
                                         supported by Chrome, Edge, Opera and Firefox */
 
       overscroll-behavior-x: none;
+      background: #DDDDDD;
 
     }
 
@@ -108,6 +109,8 @@
       left: 0;
       bottom: 0;
       background: #DDDDDD;
+      transition: transform 0.5s ease;
+      transform-origin: center;
     }
 
     .overlay {
@@ -570,14 +573,67 @@
     .dragdropmessage h1 {
       font-size: 24px;
     }
-  </style>
+
+
+    /* ... */
+
+
+    #helpButton {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 2000;
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+#helpOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: rgba(0, 0, 0, 0.6); */
+  display: none;
+  z-index: 1500;
+  pointer-events: none;
+}
+
+.helpText {
+  position: absolute;
+  color: #ffffff;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  pointer-events: auto;
+}
+
+.arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+</style>
   <link href="data:text/css;base64,LyogCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbnM6YmVmb3JlIHsKCWNvbnRlbnQ6ICIgIjsKCXBvc2l0aW9uOmFic29sdXRlOwoJd2lkdGg6IDA7CgloZWlnaHQ6IDA7Cgl0b3A6LTIwcHg7CgkKCWJvcmRlci1zdHlsZTogc29saWQ7Cglib3JkZXItd2lkdGg6IDAgMTAwcHggMTAwcHggMTAwcHg7Cglib3JkZXItY29sb3I6IHRyYW5zcGFyZW50IHRyYW5zcGFyZW50ICMwMDdiZmYgdHJhbnNwYXJlbnQ7Cn0gKi8KCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbnMgewogIAlmb250LWZhbWlseTogIk9zd2FsZCI7CgkJdGV4dC1hbGlnbjogbGVmdDsKCQljdXJzb3I6IGRlZmF1bHQ7CgkJYm9yZGVyOiAxcHggc29saWQgI2NjYzsKCQliYWNrZ3JvdW5kOiAjZmZmOwoJCWJveC1zaGFkb3c6IDJweCAycHggNHB4IHJnYmEoMCwgMCwgMCwgLjIpOwoJCS8qIGNvcmUgc3R5bGVzIHNob3VsZCBub3QgYmUgY2hhbmdlZCAqLwoJCXBvc2l0aW9uOiBhYnNvbHV0ZTsKCQlkaXNwbGF5OiBub25lOwoJCXotaW5kZXg6IDk5OTk7CgkJbWF4LWhlaWdodDogMzYwcHg7CgkJb3ZlcmZsb3c6IGhpZGRlbjsKCQlvdmVyZmxvdy15OiBhdXRvOwoJCWJveC1zaXppbmc6IGJvcmRlci1ib3g7CgkJYm9yZGVyLXJhZGl1czogMHB4IDBweCA1cHggNXB4Owp9CgoKLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9uIHsKCQlwb3NpdGlvbjogcmVsYXRpdmU7CgkJcGFkZGluZzogMCAuM2VtOwoJCW92ZXJmbG93OiBoaWRkZW47CgkJLyogd2hpdGUtc3BhY2U6IG5vd3JhcDsgKi8KCQl3b3JkLWJyZWFrOiBicmVhay13b3JkOwoJCWZvbnQtc2l6ZTogMS4wMmVtOwoJCWNvbG9yOiAjMzMzOwoJCXRleHQtYWxpZ246IGxlZnQ7CgkJZm9udC13ZWlnaHQ6IG5vcm1hbDsKCQlwYWRkaW5nLWxlZnQ6MzBweDsKCQljdXJzb3I6IHBvaW50ZXI7Cn0KCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbiAuc3VidGl0bGV7Cgljb2xvcjogIzc5Nzk3OTsKCS8qIGZvbnQtd2VpZ2h0OiAzMDA7ICovCglmb250LXNpemU6MTJweDsKCWxpbmUtaGVpZ2h0OjE0cHg7Cn0KCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbiBiIHsKCQlmb250LXdlaWdodDogbm9ybWFsOwoJCWNvbG9yOiByZ2IoMTMxLCA3MSwgNjUpOwp9CgouYXV0b2NvbXBsZXRlLXN1Z2dlc3Rpb24gLmNvbnRlbnQgewoJYm9yZGVyLXRvcDogc29saWQgMXB4ICNmMmYyZjI7Cglib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2YyZjJmMjsKfQoKLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9uLnNlbGVjdGVkIHsKCQliYWNrZ3JvdW5kOiAjZjBmMGYwOwp9CgouYXV0b2NvbXBsZXRlLXN1Z2dlc3Rpb25zID4gLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9uewoJYm9yZGVyOm5vbmU7Cn0KCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbnMgPiAuYXV0b2NvbXBsZXRlLXN1Z2dlc3Rpb24uZGlzY2lwbGluZXsKCQlib3JkZXItdG9wOiBzb2xpZCAycHggcmdiKDE1MSwgOTAsIDg1KTsKfQoKLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9ucyA+IC5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbi5kaXNjaXBsaW5lIH4gLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9uLmRpc2NpcGxpbmV7Cglib3JkZXI6bm9uZTsKCQkKfQoKCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbnMgPiAuYXV0b2NvbXBsZXRlLXN1Z2dlc3Rpb24uYXV0aG9yIC5pY29uewoJcG9zaXRpb246YWJzb2x1dGU7Cgl0b3A6N3B4OwoJbGVmdDo3cHg7Cgl3aWR0aDoxNHB4OwoJaGVpZ2h0OjE0cHg7Cgljb2xvcjogcmdiKDE1MSwgOTAsIDg1KTsKfQoKLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9ucyA+IC5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbi5kaXNjaXBsaW5lIC5pY29uewoJcG9zaXRpb246YWJzb2x1dGU7Cgl0b3A6N3B4OwoJbGVmdDo3cHg7Cgl3aWR0aDoxNHB4OwoJaGVpZ2h0OjE0cHg7Cgljb2xvcjogcmdiKDE1MSwgOTAsIDg1KTsKfQoKCgoK" rel="stylesheet" type="text/css" media="screen" />
-  <script type="module" crossorigin src="../../assets/main-DKQSczCy.js"></script>
+  <link href="data:text/css;base64,LyogCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbnM6YmVmb3JlIHsKCWNvbnRlbnQ6ICIgIjsKCXBvc2l0aW9uOmFic29sdXRlOwoJd2lkdGg6IDA7CgloZWlnaHQ6IDA7Cgl0b3A6LTIwcHg7CgkKCWJvcmRlci1zdHlsZTogc29saWQ7Cglib3JkZXItd2lkdGg6IDAgMTAwcHggMTAwcHggMTAwcHg7Cglib3JkZXItY29sb3I6IHRyYW5zcGFyZW50IHRyYW5zcGFyZW50ICMwMDdiZmYgdHJhbnNwYXJlbnQ7Cn0gKi8KCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbnMgewogIAlmb250LWZhbWlseTogIk9zd2FsZCI7CgkJdGV4dC1hbGlnbjogbGVmdDsKCQljdXJzb3I6IGRlZmF1bHQ7CgkJYm9yZGVyOiAxcHggc29saWQgI2NjYzsKCQliYWNrZ3JvdW5kOiAjZmZmOwoJCWJveC1zaGFkb3c6IDJweCAycHggNHB4IHJnYmEoMCwgMCwgMCwgLjIpOwoJCS8qIGNvcmUgc3R5bGVzIHNob3VsZCBub3QgYmUgY2hhbmdlZCAqLwoJCXBvc2l0aW9uOiBhYnNvbHV0ZTsKCQlkaXNwbGF5OiBub25lOwoJCXotaW5kZXg6IDk5OTk7CgkJbWF4LWhlaWdodDogMzYwcHg7CgkJb3ZlcmZsb3c6IGhpZGRlbjsKCQlvdmVyZmxvdy15OiBhdXRvOwoJCWJveC1zaXppbmc6IGJvcmRlci1ib3g7CgkJYm9yZGVyLXJhZGl1czogMHB4IDBweCA1cHggNXB4Owp9CgoKLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9uIHsKCQlwb3NpdGlvbjogcmVsYXRpdmU7CgkJcGFkZGluZzogMCAuM2VtOwoJCW92ZXJmbG93OiBoaWRkZW47CgkJLyogd2hpdGUtc3BhY2U6IG5vd3JhcDsgKi8KCQl3b3JkLWJyZWFrOiBicmVhay13b3JkOwoJCWZvbnQtc2l6ZTogMS4wMmVtOwoJCWNvbG9yOiAjMzMzOwoJCXRleHQtYWxpZ246IGxlZnQ7CgkJZm9udC13ZWlnaHQ6IG5vcm1hbDsKCQlwYWRkaW5nLWxlZnQ6MzBweDsKCQljdXJzb3I6IHBvaW50ZXI7Cn0KCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbiAuc3VidGl0bGV7Cgljb2xvcjogIzc5Nzk3OTsKCS8qIGZvbnQtd2VpZ2h0OiAzMDA7ICovCglmb250LXNpemU6MTJweDsKCWxpbmUtaGVpZ2h0OjE0cHg7Cn0KCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbiBiIHsKCQlmb250LXdlaWdodDogbm9ybWFsOwoJCWNvbG9yOiByZ2IoMTMxLCA3MSwgNjUpOwp9CgouYXV0b2NvbXBsZXRlLXN1Z2dlc3Rpb24gLmNvbnRlbnQgewoJYm9yZGVyLXRvcDogc29saWQgMXB4ICNmMmYyZjI7Cglib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2YyZjJmMjsKfQoKLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9uLnNlbGVjdGVkIHsKCQliYWNrZ3JvdW5kOiAjZjBmMGYwOwp9CgouYXV0b2NvbXBsZXRlLXN1Z2dlc3Rpb25zID4gLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9uewoJYm9yZGVyOm5vbmU7Cn0KCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbnMgPiAuYXV0b2NvbXBsZXRlLXN1Z2dlc3Rpb24uZGlzY2lwbGluZXsKCQlib3JkZXItdG9wOiBzb2xpZCAycHggcmdiKDE1MSwgOTAsIDg1KTsKfQoKLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9ucyA+IC5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbi5kaXNjaXBsaW5lIH4gLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9uLmRpc2NpcGxpbmV7Cglib3JkZXI6bm9uZTsKCQkKfQoKCi5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbnMgPiAuYXV0b2NvbXBsZXRlLXN1Z2dlc3Rpb24uYXV0aG9yIC5pY29uewoJcG9zaXRpb246YWJzb2x1dGU7Cgl0b3A6N3B4OwoJbGVmdDo3cHg7Cgl3aWR0aDoxNHB4OwoJaGVpZ2h0OjE0cHg7Cgljb2xvcjogcmdiKDE1MSwgOTAsIDg1KTsKfQoKLmF1dG9jb21wbGV0ZS1zdWdnZXN0aW9ucyA+IC5hdXRvY29tcGxldGUtc3VnZ2VzdGlvbi5kaXNjaXBsaW5lIC5pY29uewoJcG9zaXRpb246YWJzb2x1dGU7Cgl0b3A6N3B4OwoJbGVmdDo3cHg7Cgl3aWR0aDoxNHB4OwoJaGVpZ2h0OjE0cHg7Cgljb2xvcjogcmdiKDE1MSwgOTAsIDg1KTsKfQoKCgoK" rel="stylesheet" type="text/css" media="screen" />
+  <script type="module" crossorigin src="../../assets/main-5JJZNZlE.js"></script>
   <link rel="stylesheet" crossorigin href="../../assets/main-RZSdADE-.css">
 </head>
 
 <body>
   <!-- <div id="densityRegion"></div> -->
+
+  <button id="helpButton">?</button>
+
+  <div id="helpOverlay"></div>
+
   <div id="netviz"></div>
   <div id="loading"></div>
 
@@ -588,6 +644,289 @@
   </div>
 
   <div id="message" style="display:none">press space to start the layout</div>
+
+  <script>
+const helpButton = document.getElementById('helpButton');
+const netviz = document.getElementById('netviz');
+const helpOverlay = document.getElementById('helpOverlay');
+let displayingHelp = false;
+const registeredHelps = [];
+const scaleFactor = 0.80;
+
+function registerHelp(selector, direction, htmlContent) {
+  const helpContainer = document.createElement('div');
+  helpContainer.classList.add('helpText');
+  helpContainer.innerHTML = htmlContent;
+
+  const arrow = document.createElement('div');
+  arrow.classList.add('arrow');
+  helpContainer.appendChild(arrow);
+
+  helpOverlay.appendChild(helpContainer);
+
+  registeredHelps.push({ selector, direction, helpContainer, arrow });
+}
+
+function addBackButton(position){
+  const button = document.createElement('button');
+  button.innerText = 'Start Exploring';
+  button.style.position = 'absolute';
+  // position can be absolute coordinates like {top: '20px', right: '20px'} or keywords like 'top-right', 'bottom-left'
+  Object.entries(position).forEach(([key, value]) => {
+    button.style[key] = value;
+  });
+
+  button.style.zIndex = '2000';
+  button.style.padding = '10px 15px';
+  button.style.backgroundColor = '#007bff';
+  button.style.color = 'white';
+  button.style.border = 'none';
+  button.style.borderRadius = '10px';
+  button.style.fontSize = '40px';
+  button.style.cursor = 'pointer';
+  // override mouse events
+  button.style.pointerEvents = 'auto';
+
+  button.addEventListener('click', () => {
+    updateDisplay();
+  });
+  helpOverlay.appendChild(button);
+
+}
+
+function positionHelpElements() {
+  registeredHelps.forEach(({ selector, direction, helpContainer, arrow }) => {
+    let targetElement;
+    let targetRect;
+
+    if (Array.isArray(selector)) {
+      // If selector is a relative position inside netviz
+      const [x, y] = selector;
+      const netvizRect = netviz.getBoundingClientRect();
+      targetRect = {
+        top: netvizRect.top + y * netvizRect.height,
+        left: netvizRect.left + x * netvizRect.width,
+        width: 0,
+        height: 0,
+        bottom: netvizRect.top + y * netvizRect.height,
+        right: netvizRect.left + x * netvizRect.width
+      };
+    } else if (typeof selector === 'string') {
+      if (selector.startsWith('#')) {
+        targetElement = document.getElementById(selector.substring(1));
+      } else if (selector.startsWith('.')) {
+        targetElement = document.querySelector(selector);
+      } else {
+        console.error('Invalid selector specified');
+        return;
+      }
+
+      if (!targetElement) {
+        console.error(`Element not found for selector: ${selector}`);
+        return;
+      }
+
+      targetRect = targetElement.getBoundingClientRect();
+    } else {
+      console.error('Invalid selector specified');
+      return;
+    }
+
+    const helpTextRect = helpContainer.getBoundingClientRect();
+    const arrowSize = 10;
+
+    let top, left;
+    let arrowTop, arrowLeft;
+
+    switch (direction) {
+      case 'top':
+        top = targetRect.top - helpTextRect.height - arrowSize;
+        left = targetRect.left + targetRect.width / 2 - helpTextRect.width / 2;
+        arrowTop = helpTextRect.height;
+        arrowLeft = helpTextRect.width / 2 - arrowSize / 2;
+        arrow.style.borderWidth = `${arrowSize}px ${arrowSize}px 0 ${arrowSize}px`;
+        arrow.style.borderColor = `#333 transparent transparent transparent`;
+        break;
+
+      case 'bottom':
+        top = targetRect.bottom + arrowSize;
+        left = targetRect.left + targetRect.width / 2 - helpTextRect.width / 2;
+        arrowTop = -arrowSize;
+        arrowLeft = helpTextRect.width / 2 - arrowSize / 2;
+        arrow.style.borderWidth = `0 ${arrowSize}px ${arrowSize}px ${arrowSize}px`;
+        arrow.style.borderColor = `transparent transparent #333 transparent`;
+        break;
+
+      case 'left':
+        top = targetRect.top + targetRect.height / 2 - helpTextRect.height / 2;
+        left = targetRect.left - helpTextRect.width - arrowSize;
+        arrowTop = helpTextRect.height / 2 - arrowSize / 2;
+        arrowLeft = helpTextRect.width; // Position arrow on the right edge of the tooltip
+        arrow.style.borderWidth = `${arrowSize}px 0 ${arrowSize}px ${arrowSize}px`;
+        arrow.style.borderColor = `transparent transparent transparent #333`;
+        break;
+
+      case 'right':
+        top = targetRect.top + targetRect.height / 2 - helpTextRect.height / 2;
+        left = targetRect.right + arrowSize;
+        arrowTop = helpTextRect.height / 2 - arrowSize / 2;
+        arrowLeft = -arrowSize; // Position arrow on the left edge of the tooltip
+        arrow.style.borderWidth = `${arrowSize}px ${arrowSize}px ${arrowSize}px 0`;
+        arrow.style.borderColor = `transparent #333 transparent transparent`;
+        break;
+
+      default:
+        console.error('Invalid direction specified');
+        return;
+    }
+
+    // Ensure help text is within the window bounds
+    top = Math.max(0, Math.min(top, window.innerHeight - helpTextRect.height));
+    left = Math.max(0, Math.min(left, window.innerWidth - helpTextRect.width));
+
+    helpContainer.style.top = `${top}px`;
+    helpContainer.style.left = `${left}px`;
+
+    // Set arrow properties
+    arrow.style.position = 'absolute';
+    arrow.style.top = `${arrowTop}px`;
+    arrow.style.left = `${arrowLeft}px`;
+  });
+}
+
+
+
+function handleTransitionEnd() {
+  if (displayingHelp) {
+    helpOverlay.style.display = 'block';
+    positionHelpElements();
+  } else {
+    helpOverlay.style.display = 'none';
+  }
+}
+
+let updateDisplay = () =>{
+  if (!displayingHelp) {
+    netviz.style.transform = `scale(${scaleFactor})`;
+    netviz.addEventListener('transitionend', handleTransitionEnd, { once: true });
+    displayingHelp = true;
+    // reenable interaction with the netviz
+    netviz.style.pointerEvents = 'none';
+  } else {
+    netviz.style.transform = 'scale(1)';
+    displayingHelp = false;
+    helpOverlay.style.display = 'none';
+    //block interaction with the netviz
+    netviz.style.pointerEvents = 'auto';
+  }
+}
+
+helpButton.addEventListener('click', () => {
+  updateDisplay();
+});
+
+window.addEventListener('resize', () => {
+  if (displayingHelp) {
+    positionHelpElements();
+  }
+});
+
+addBackButton({ bottom: '175px', right: '200px' });
+
+
+// Example usage
+// Example usage (robotics institutions collaboration map)
+registerHelp('#colorSelector', 'top', `
+<span style="max-width: 220px; display: inline-block;">
+  Select from the options below to highlight specific aspects of the collaboration network in robotics.
+  <br /><br />
+  <span style="font-size:11px">
+    You can also choose the color palette that best fits your analysis or presentation.
+  </span>
+</span>
+`);
+
+registerHelp('#edgeOpacitySlider', 'bottom', `
+<span style="max-width: 220px; display: inline-block; max-height: 100px; overflow-y: auto;">
+  Adjust the opacity of collaboration ties between institutions.
+</span>
+`);
+
+registerHelp('#nodeSizeSlider', 'bottom', `
+<span style="max-width: 220px; display: inline-block; max-height: 100px; overflow-y: auto;">
+  Adjust the size of institution nodes.
+</span>
+`);
+
+registerHelp('.searchSelector', 'right', `
+<span style="max-width: 350px; display: inline-block; max-height: 150px; overflow-y: auto;">
+  Type a search term to highlight <b>institutions</b> in the visualization based on their names.
+  <br /><br />
+  <span style="font-size:11px">
+    Note: institution names come directly from Web of Science and are <b>not disambiguated</b>—some appear abbreviated (e.g., "MIT"), others spelled out (e.g., "Massachusetts Institute of Technology").
+    Searching different variants may help.
+    <br /><br />
+    Advanced search is also available by starting your query with an * (asterisk) followed by the advanced query.
+    You can search by attributes such as introduction year and (when available) country or type.
+    <br /><br />
+    To filter by the year an institution first appears in the dataset, use:
+    <br /><br />
+    <em>*year&gt;2015</em> (institutions introduced after 2015) or <em>*year&lt;2010</em> (introduced before 2010).
+    <br /><br />
+    To search by a specific attribute, use:
+    <br /><br />
+    <em>*AttributeName~SearchTerm</em>
+    <br /><br />
+    e.g., <em>*Institution~Carnegie</em> highlights institutions with "Carnegie" in the name.
+    To ignore case sensitivity, use:
+    <br /><br />
+    <em>*AttributeName~/SearchTerm/i</em>
+    <br /><br />
+    e.g., <em>*Institution~/massachusetts institute/i</em> matches regardless of case.
+    <br /><br />
+    Because names are not standardized, consider trying abbreviations and full names (e.g., "ETH" and "Eidgenössische Technische Hochschule").
+    <br /><br />
+    You can also combine terms using & (and) or | (or), e.g.:
+    <br /><br />
+    <em>*Institution~Tsinghua&&gt;2005</em>
+    <br /><br />
+    <em>*Institution~Polytechnic|Institution~Politecnico</em>
+  </span>
+</span>
+`);
+
+registerHelp([0.7, 0.5], 'right', `
+<span style="max-width: 350px; display: inline-block; max-height: 150px; overflow-y: auto;">
+  Welcome to the Robotics Institutions Collaboration Map.
+  <br /><br />
+  <span style="font-size:11px">
+    This interactive network shows institutions active in robotics and their past collaborations (edges connect institutions that have collaborated).
+    Node colors indicate the year each institution was first introduced in the dataset.
+    <br /><br />
+    Institutions that do not collaborate with others may not appear as connected components here.
+    Names are sourced from Web of Science and may include abbreviations or alternate spellings.
+    <br /><br />
+    You can zoom in and out using your mouse wheel or trackpad.
+    <br /><br />
+    Explore the structure, find partners, and discover collaboration patterns across the field.
+  </span>
+</span>
+`);
+
+// if first time show help overlay:
+  // use cookies to track if user has seen help overlay before
+  // if not, show help overlay
+  // if yes, do not show help overlay
+
+  // if (!document.cookie.split('; ').find(row => row.startsWith('seenHelpOverlay='))) {
+  //   document.cookie = "seenHelpOverlay=true; max-age=" + 60 * 60 * 24; // 1 day
+  //   // call updateDisplay after 4 seconds
+
+  // }
+    setTimeout(() => {
+    updateDisplay();
+  }, 2000);
+  </script>
 
 </body>
 
