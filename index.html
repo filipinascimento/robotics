@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Robotics Visualizations</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f6f0e6;
+        --ink: #18212c;
+        --muted: #5f6c7b;
+        --card: rgba(255, 252, 246, 0.82);
+        --line: rgba(24, 33, 44, 0.12);
+        --accent-a: #c65d2e;
+        --accent-b: #1f6b75;
+        --shadow: 0 24px 70px rgba(24, 33, 44, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(198, 93, 46, 0.22), transparent 34%),
+          radial-gradient(circle at 80% 20%, rgba(31, 107, 117, 0.18), transparent 28%),
+          linear-gradient(135deg, #efe2ce 0%, #f7f3eb 42%, #e5efe9 100%);
+      }
+
+      main {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 48px 0 64px;
+      }
+
+      .hero {
+        display: grid;
+        gap: 18px;
+        margin-bottom: 28px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 10ch;
+        font-size: clamp(2.8rem, 7vw, 5.6rem);
+        line-height: 0.94;
+        letter-spacing: -0.05em;
+      }
+
+      .lede {
+        margin: 0;
+        max-width: 64ch;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        gap: 18px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        background: var(--card);
+        backdrop-filter: blur(12px);
+        box-shadow: var(--shadow);
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+      }
+
+      .label {
+        margin: 10px 0 0;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.7rem;
+        line-height: 1.05;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .meta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .pill {
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(24, 33, 44, 0.06);
+      }
+
+      .link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        padding: 12px 16px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        color: #fff8f1;
+        background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 12px 28px rgba(24, 33, 44, 0.18);
+      }
+
+      .link:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 34px rgba(24, 33, 44, 0.22);
+      }
+
+      .footer {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 640px) {
+        main {
+          width: min(100% - 20px, 1120px);
+          padding-top: 28px;
+        }
+
+        .card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Robotics Atlas</p>
+        <h1>Choose a visualization.</h1>
+        <p class="lede">
+          This site bundles two complementary views of the robotics dataset: an evolution-focused citation community explorer and the geographic map visualization already published in this submodule.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <p class="label">Citation Dynamics</p>
+          <h2>Robotics evolution visualization</h2>
+          <p>
+            Explore the coarse and detailed community timelines for robotics and humanoid subsets, then drill into the network structure behind each topic cluster.
+          </p>
+          <div class="meta">
+            <span class="pill">React</span>
+            <span class="pill">Timelines</span>
+            <span class="pill">Citation communities</span>
+          </div>
+          <a class="link" href="evolution/">Open evolution view</a>
+        </article>
+
+        <article class="card">
+          <p class="label">Spatial View</p>
+          <h2>Institution map visualization</h2>
+          <p>
+            Open the existing interactive map experience for the robotics institutions network hosted in the example documentation bundle.
+          </p>
+          <div class="meta">
+            <span class="pill">Map</span>
+            <span class="pill">Institutions</span>
+            <span class="pill">Helios</span>
+          </div>
+          <a class="link" href="dist_example_maps/docs/example/maps.html">Open map view</a>
+        </article>
+      </section>
+
+      <p class="footer">The evolution app is deployed from the parent repository into this submodule via Scripts/build_frontend_to_submodule.sh.</p>
+    </main>
+  </body>
+</html>
