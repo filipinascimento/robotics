@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Robotics Visualizations</title>
+    <title>Robotics Atlas</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;600&display=swap");
 
@@ -93,6 +93,20 @@
         padding: 1.25rem;
       }
 
+      .card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .card-icon {
+        width: 24px;
+        height: 24px;
+        flex: 0 0 auto;
+        color: rgba(255, 255, 255, 0.88);
+      }
+
       .card::before {
         content: "";
         position: absolute;
@@ -177,18 +191,33 @@
     <main>
       <section class="hero">
         <p class="eyebrow">Robotics Atlas</p>
-        <h1>Choose a visualization.</h1>
+        <h1>A visual atlas of robotics research.</h1>
         <p class="lede">
-          This site bundles two complementary views of the robotics dataset: an evolution-focused citation community explorer and the geographic map visualization already published in this submodule.
+          Robotics Atlas presents the structure of the robotics literature through two complementary perspectives: a temporal view of citation communities and a spatial view of the institutional landscape behind the field. Together they help situate major themes, track how they evolve, and inspect where robotics research is produced.
         </p>
       </section>
 
       <section class="cards">
         <article class="card">
-          <p class="label">Citation Dynamics</p>
+          <div class="card-head">
+            <p class="label">Citation Dynamics</p>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M4 18.5h16M6.5 16V9.5M12 16V6.5M17.5 16v-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="6.5" cy="8.5" r="1.2" fill="currentColor" />
+              <circle cx="12" cy="5.5" r="1.2" fill="currentColor" />
+              <circle cx="17.5" cy="11" r="1.2" fill="currentColor" />
+            </svg>
+          </div>
           <h2>Robotics evolution visualization</h2>
           <p>
-            Explore the coarse and detailed community timelines for robotics and humanoid subsets, then drill into the network structure behind each topic cluster.
+            Follow the rise and decline of major citation communities across the broader robotics corpus and the humanoid subset, then drill into the network structure within each cluster.
           </p>
           <div class="meta">
             <span class="pill">React</span>
@@ -199,10 +228,23 @@
         </article>
 
         <article class="card">
-          <p class="label">Spatial View</p>
+          <div class="card-head">
+            <p class="label">Spatial View</p>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 20s-5.5-5.6-5.5-10A5.5 5.5 0 0 1 12 4.5 5.5 5.5 0 0 1 17.5 10c0 4.4-5.5 10-5.5 10Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="12" cy="10" r="2" fill="currentColor" />
+            </svg>
+          </div>
           <h2>Institution map visualization</h2>
           <p>
-            Open the existing interactive map experience for the robotics institutions network hosted in the example documentation bundle.
+            Inspect the geographic and network footprint of robotics institutions through the interactive map view of the institutional collaboration landscape.
           </p>
           <div class="meta">
             <span class="pill">Map</span>
@@ -212,8 +254,6 @@
           <a class="cta" href="dist_example_maps/docs/example/maps.html">Open map view</a>
         </article>
       </section>
-
-      <p class="footer">The evolution app is deployed from the parent repository into this submodule via Scripts/build_frontend_to_submodule.sh.</p>
     </main>
   </body>
 </html>
